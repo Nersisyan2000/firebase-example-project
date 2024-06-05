@@ -1,3 +1,4 @@
+import 'package:firebase_example_project/data/remote/fcm_repositry.dart';
 import 'package:firebase_example_project/data/remote/firebase_repository.dart';
 import 'package:firebase_example_project/presentations/screens/auth/auth_screen.dart';
 import 'package:firebase_example_project/presentations/screens/profile/profile_screen.dart';
@@ -13,8 +14,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    setupFCM();
     checkLoggerUser();
     super.initState();
+  }
+
+  void setupFCM() async {
+    await FCMRepo.instance.requestPermission();
+    await FCMRepo.instance.getToken();
   }
 
   checkLoggerUser() async {
